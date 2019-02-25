@@ -1,0 +1,19 @@
+﻿@model IEnumerable<Aerithium.Models.ClassesViewModel>
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+<h2>Welcome to Aerithium!</h2>    
+</div>
+
+<table class="table">
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.class_id</td>
+            <td>@item.name</td>
+            <td>@item.description</td>
+        </tr>
+    }
+</table>

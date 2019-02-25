@@ -1,0 +1,347 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AerithiumDB1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Characters">
+    <Key>
+      <PropertyRef Name="character_id" />
+    </Key>
+    <Property Name="character_id" Type="Int32" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="character_level" Type="Int32" Nullable="false" />
+    <Property Name="realm" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Characters_Specialisations" Relationship="Self.FK_Characters_Specialisations_Characters" FromRole="Characters" ToRole="Characters_Specialisations" />
+    <NavigationProperty Name="Event_Signups" Relationship="Self.FK_Event_Signups_Characters" FromRole="Characters" ToRole="Event_Signups" />
+    <NavigationProperty Name="People_Characters" Relationship="Self.FK_People_Characters_Characters" FromRole="Characters" ToRole="People_Characters" />
+  </EntityType>
+  <EntityType Name="Characters_Specialisations">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="character_id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Characters" Relationship="Self.FK_Characters_Specialisations_Characters" FromRole="Characters_Specialisations" ToRole="Characters" />
+    <Property Name="class_spec_id" Type="Int32" Nullable="false" />
+    <Property Name="item_level" Type="Int32" />
+    <NavigationProperty Name="Classes_Specialisations" Relationship="AerithiumDB1Model.FK_Characters_Specialisations_Classes_Specialisations" FromRole="Characters_Specialisations" ToRole="Classes_Specialisations" />
+  </EntityType>
+  <EntityType Name="Combat_Roles">
+    <Key>
+      <PropertyRef Name="role_id" />
+    </Key>
+    <Property Name="role_id" Type="Int32" Nullable="false" />
+    <Property Name="role_name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Specialisations" Relationship="Self.FK_Specialisations_Combat_Roles" FromRole="Combat_Roles" ToRole="Specialisations" />
+  </EntityType>
+  <EntityType Name="Event_Signups">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="event_id" Type="Int32" Nullable="false" />
+    <Property Name="character_id" Type="Int32" Nullable="false" />
+    <Property Name="status_id" Type="Int32" Nullable="false" />
+    <Property Name="person_id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Characters" Relationship="Self.FK_Event_Signups_Characters" FromRole="Event_Signups" ToRole="Characters" />
+    <NavigationProperty Name="Events" Relationship="Self.FK_Event_Signups_Events" FromRole="Event_Signups" ToRole="Events" />
+    <NavigationProperty Name="People" Relationship="Self.FK_Event_Signups_People" FromRole="Event_Signups" ToRole="People" />
+    <NavigationProperty Name="Signup_Status" Relationship="Self.FK_Event_Signups_Signup_Status" FromRole="Event_Signups" ToRole="Signup_Status" />
+  </EntityType>
+  <EntityType Name="Events">
+    <Key>
+      <PropertyRef Name="event_id" />
+    </Key>
+    <Property Name="event_id" Type="Int32" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="limit" Type="Int32" Nullable="false" />
+    <Property Name="event_start" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="event_end" Type="DateTime" Precision="3" />
+    <Property Name="required_ilvl" Type="Int32" />
+    <Property Name="description" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="Event_Signups" Relationship="Self.FK_Event_Signups_Events" FromRole="Events" ToRole="Event_Signups" />
+  </EntityType>
+  <EntityType Name="People">
+    <Key>
+      <PropertyRef Name="person_id" />
+    </Key>
+    <Property Name="person_id" Type="Int32" Nullable="false" />
+    <Property Name="role_id" Type="Int32" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Event_Signups" Relationship="Self.FK_Event_Signups_People" FromRole="People" ToRole="Event_Signups" />
+    <NavigationProperty Name="People_Characters" Relationship="Self.FK_People_Characters_People" FromRole="People" ToRole="People_Characters" />
+    <NavigationProperty Name="Roles" Relationship="Self.FK_People_Roles" FromRole="People" ToRole="Roles" />
+    <Property Name="password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="People_Characters">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="person_id" Type="Int32" Nullable="false" />
+    <Property Name="character_id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Characters" Relationship="Self.FK_People_Characters_Characters" FromRole="People_Characters" ToRole="Characters" />
+    <NavigationProperty Name="People" Relationship="Self.FK_People_Characters_People" FromRole="People_Characters" ToRole="People" />
+  </EntityType>
+  <EntityType Name="Roles">
+    <Key>
+      <PropertyRef Name="role_id" />
+    </Key>
+    <Property Name="role_id" Type="Int32" Nullable="false" />
+    <Property Name="role_name" Type="String" MaxLength="15" FixedLength="true" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="People" Relationship="Self.FK_People_Roles" FromRole="Roles" ToRole="People" />
+  </EntityType>
+  <EntityType Name="Signup_Status">
+    <Key>
+      <PropertyRef Name="status_id" />
+    </Key>
+    <Property Name="status_id" Type="Int32" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="description" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="Event_Signups" Relationship="Self.FK_Event_Signups_Signup_Status" FromRole="Signup_Status" ToRole="Event_Signups" />
+  </EntityType>
+  <EntityType Name="Specialisations">
+    <Key>
+      <PropertyRef Name="spec_id" />
+    </Key>
+    <Property Name="spec_id" Type="Int32" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="16" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="role_id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Combat_Roles" Relationship="Self.FK_Specialisations_Combat_Roles" FromRole="Specialisations" ToRole="Combat_Roles" />
+    <NavigationProperty Name="Classes_Specialisations" Relationship="AerithiumDB1Model.FK_Classes_Specialisations_Specialisations" FromRole="Specialisations" ToRole="Classes_Specialisations" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK_Characters_Specialisations_Characters">
+    <End Role="Characters" Type="Self.Characters" Multiplicity="1" />
+    <End Role="Characters_Specialisations" Type="Self.Characters_Specialisations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Characters">
+        <PropertyRef Name="character_id" />
+      </Principal>
+      <Dependent Role="Characters_Specialisations">
+        <PropertyRef Name="character_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Event_Signups_Characters">
+    <End Role="Characters" Type="Self.Characters" Multiplicity="1" />
+    <End Role="Event_Signups" Type="Self.Event_Signups" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Characters">
+        <PropertyRef Name="character_id" />
+      </Principal>
+      <Dependent Role="Event_Signups">
+        <PropertyRef Name="character_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_People_Characters_Characters">
+    <End Role="Characters" Type="Self.Characters" Multiplicity="1" />
+    <End Role="People_Characters" Type="Self.People_Characters" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Characters">
+        <PropertyRef Name="character_id" />
+      </Principal>
+      <Dependent Role="People_Characters">
+        <PropertyRef Name="character_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Specialisations_Combat_Roles">
+    <End Role="Combat_Roles" Type="Self.Combat_Roles" Multiplicity="1" />
+    <End Role="Specialisations" Type="Self.Specialisations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Combat_Roles">
+        <PropertyRef Name="role_id" />
+      </Principal>
+      <Dependent Role="Specialisations">
+        <PropertyRef Name="role_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Event_Signups_Events">
+    <End Role="Events" Type="Self.Events" Multiplicity="1" />
+    <End Role="Event_Signups" Type="Self.Event_Signups" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Events">
+        <PropertyRef Name="event_id" />
+      </Principal>
+      <Dependent Role="Event_Signups">
+        <PropertyRef Name="event_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Event_Signups_People">
+    <End Role="People" Type="Self.People" Multiplicity="1" />
+    <End Role="Event_Signups" Type="Self.Event_Signups" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="People">
+        <PropertyRef Name="person_id" />
+      </Principal>
+      <Dependent Role="Event_Signups">
+        <PropertyRef Name="person_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Event_Signups_Signup_Status">
+    <End Role="Signup_Status" Type="Self.Signup_Status" Multiplicity="1" />
+    <End Role="Event_Signups" Type="Self.Event_Signups" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Signup_Status">
+        <PropertyRef Name="status_id" />
+      </Principal>
+      <Dependent Role="Event_Signups">
+        <PropertyRef Name="status_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_People_Characters_People">
+    <End Role="People" Type="Self.People" Multiplicity="1" />
+    <End Role="People_Characters" Type="Self.People_Characters" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="People">
+        <PropertyRef Name="person_id" />
+      </Principal>
+      <Dependent Role="People_Characters">
+        <PropertyRef Name="person_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_People_Roles">
+    <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+    <End Role="People" Type="Self.People" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="role_id" />
+      </Principal>
+      <Dependent Role="People">
+        <PropertyRef Name="role_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="AerithiumDB1Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Characters" EntityType="Self.Characters" />
+    <EntitySet Name="Characters_Specialisations" EntityType="Self.Characters_Specialisations" />
+    <EntitySet Name="Combat_Roles" EntityType="Self.Combat_Roles" />
+    <EntitySet Name="Event_Signups" EntityType="Self.Event_Signups" />
+    <EntitySet Name="Events" EntityType="Self.Events" />
+    <EntitySet Name="People" EntityType="Self.People" />
+    <EntitySet Name="People_Characters" EntityType="Self.People_Characters" />
+    <EntitySet Name="Roles" EntityType="Self.Roles" />
+    <EntitySet Name="Signup_Status" EntityType="Self.Signup_Status" />
+    <EntitySet Name="Specialisations" EntityType="Self.Specialisations" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <AssociationSet Name="FK_Characters_Specialisations_Characters" Association="Self.FK_Characters_Specialisations_Characters">
+      <End Role="Characters" EntitySet="Characters" />
+      <End Role="Characters_Specialisations" EntitySet="Characters_Specialisations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Event_Signups_Characters" Association="Self.FK_Event_Signups_Characters">
+      <End Role="Characters" EntitySet="Characters" />
+      <End Role="Event_Signups" EntitySet="Event_Signups" />
+    </AssociationSet>
+    <AssociationSet Name="FK_People_Characters_Characters" Association="Self.FK_People_Characters_Characters">
+      <End Role="Characters" EntitySet="Characters" />
+      <End Role="People_Characters" EntitySet="People_Characters" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Specialisations_Combat_Roles" Association="Self.FK_Specialisations_Combat_Roles">
+      <End Role="Combat_Roles" EntitySet="Combat_Roles" />
+      <End Role="Specialisations" EntitySet="Specialisations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Event_Signups_Events" Association="Self.FK_Event_Signups_Events">
+      <End Role="Events" EntitySet="Events" />
+      <End Role="Event_Signups" EntitySet="Event_Signups" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Event_Signups_People" Association="Self.FK_Event_Signups_People">
+      <End Role="People" EntitySet="People" />
+      <End Role="Event_Signups" EntitySet="Event_Signups" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Event_Signups_Signup_Status" Association="Self.FK_Event_Signups_Signup_Status">
+      <End Role="Signup_Status" EntitySet="Signup_Status" />
+      <End Role="Event_Signups" EntitySet="Event_Signups" />
+    </AssociationSet>
+    <AssociationSet Name="FK_People_Characters_People" Association="Self.FK_People_Characters_People">
+      <End Role="People" EntitySet="People" />
+      <End Role="People_Characters" EntitySet="People_Characters" />
+    </AssociationSet>
+    <AssociationSet Name="FK_People_Roles" Association="Self.FK_People_Roles">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="People" EntitySet="People" />
+    </AssociationSet>
+    <EntitySet Name="Classes" EntityType="AerithiumDB1Model.Classes" />
+    <EntitySet Name="Classes_Specialisations" EntityType="AerithiumDB1Model.Classes_Specialisations" />
+    <AssociationSet Name="FK_Characters_Specialisations_Classes_Specialisations" Association="AerithiumDB1Model.FK_Characters_Specialisations_Classes_Specialisations">
+      <End Role="Classes_Specialisations" EntitySet="Classes_Specialisations" />
+      <End Role="Characters_Specialisations" EntitySet="Characters_Specialisations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Classes_Specialisations_Classes" Association="AerithiumDB1Model.FK_Classes_Specialisations_Classes">
+      <End Role="Classes" EntitySet="Classes" />
+      <End Role="Classes_Specialisations" EntitySet="Classes_Specialisations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Classes_Specialisations_Specialisations" Association="AerithiumDB1Model.FK_Classes_Specialisations_Specialisations">
+      <End Role="Specialisations" EntitySet="Specialisations" />
+      <End Role="Classes_Specialisations" EntitySet="Classes_Specialisations" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Classes">
+    <Key>
+      <PropertyRef Name="class_id" />
+    </Key>
+    <Property Name="class_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Classes_Specialisations" Relationship="AerithiumDB1Model.FK_Classes_Specialisations_Classes" FromRole="Classes" ToRole="Classes_Specialisations" />
+  </EntityType>
+  <EntityType Name="Classes_Specialisations">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="class_id" Type="Int32" Nullable="false" />
+    <Property Name="spec_id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Characters_Specialisations" Relationship="AerithiumDB1Model.FK_Characters_Specialisations_Classes_Specialisations" FromRole="Classes_Specialisations" ToRole="Characters_Specialisations" />
+    <NavigationProperty Name="Classes" Relationship="AerithiumDB1Model.FK_Classes_Specialisations_Classes" FromRole="Classes_Specialisations" ToRole="Classes" />
+    <NavigationProperty Name="Specialisations" Relationship="AerithiumDB1Model.FK_Classes_Specialisations_Specialisations" FromRole="Classes_Specialisations" ToRole="Specialisations" />
+  </EntityType>
+  <Association Name="FK_Characters_Specialisations_Classes_Specialisations">
+    <End Type="AerithiumDB1Model.Classes_Specialisations" Role="Classes_Specialisations" Multiplicity="1" />
+    <End Type="AerithiumDB1Model.Characters_Specialisations" Role="Characters_Specialisations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Classes_Specialisations">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Characters_Specialisations">
+        <PropertyRef Name="class_spec_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Classes_Specialisations_Classes">
+    <End Type="AerithiumDB1Model.Classes" Role="Classes" Multiplicity="1" />
+    <End Type="AerithiumDB1Model.Classes_Specialisations" Role="Classes_Specialisations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Classes">
+        <PropertyRef Name="class_id" />
+      </Principal>
+      <Dependent Role="Classes_Specialisations">
+        <PropertyRef Name="class_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Classes_Specialisations_Specialisations">
+    <End Type="AerithiumDB1Model.Specialisations" Role="Specialisations" Multiplicity="1" />
+    <End Type="AerithiumDB1Model.Classes_Specialisations" Role="Classes_Specialisations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Specialisations">
+        <PropertyRef Name="spec_id" />
+      </Principal>
+      <Dependent Role="Classes_Specialisations">
+        <PropertyRef Name="spec_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

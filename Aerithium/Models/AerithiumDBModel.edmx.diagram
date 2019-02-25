@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="82ec229783aa4baca646ac98981b9501" Name="Diagram1" ZoomLevel="62">
+        <EntityTypeShape EntityType="AerithiumDB1Model.Characters" Width="1.5" PointX="2.625" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="AerithiumDB1Model.Characters_Specialisations" Width="1.5" PointX="5" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AerithiumDB1Model.Combat_Roles" Width="1.5" PointX="9.375" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AerithiumDB1Model.Event_Signups" Width="1.5" PointX="4.375" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AerithiumDB1Model.Events" Width="1.5" PointX="6.625" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="AerithiumDB1Model.People" Width="1.5" PointX="0.5" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AerithiumDB1Model.People_Characters" Width="1.5" PointX="2.625" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AerithiumDB1Model.Roles" Width="1.5" PointX="0.5" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AerithiumDB1Model.Signup_Status" Width="1.5" PointX="6.25" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AerithiumDB1Model.Specialisations" Width="1.5" PointX="8.5" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AerithiumDB1Model.sysdiagrams" Width="1.5" PointX="17.25" PointY="1.125" IsExpanded="true" />
+        <AssociationConnector Association="AerithiumDB1Model.FK_Characters_Specialisations_Characters" ManuallyRouted="false" />
+        <AssociationConnector Association="AerithiumDB1Model.FK_Event_Signups_Characters" ManuallyRouted="false" />
+        <AssociationConnector Association="AerithiumDB1Model.FK_People_Characters_Characters" ManuallyRouted="false" />
+        <AssociationConnector Association="AerithiumDB1Model.FK_Specialisations_Combat_Roles" ManuallyRouted="false" />
+        <AssociationConnector Association="AerithiumDB1Model.FK_Event_Signups_Events" ManuallyRouted="false" />
+        <AssociationConnector Association="AerithiumDB1Model.FK_Event_Signups_People" ManuallyRouted="false" />
+        <AssociationConnector Association="AerithiumDB1Model.FK_Event_Signups_Signup_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="AerithiumDB1Model.FK_People_Characters_People" ManuallyRouted="false" />
+        <AssociationConnector Association="AerithiumDB1Model.FK_People_Roles" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="AerithiumDB1Model.Classes" Width="1.5" PointX="10.125" PointY="1.875" />
+        <EntityTypeShape EntityType="AerithiumDB1Model.Classes_Specialisations" Width="1.5" PointX="7.875" PointY="1.875" />
+        <AssociationConnector Association="AerithiumDB1Model.FK_Characters_Specialisations_Classes_Specialisations" />
+        <AssociationConnector Association="AerithiumDB1Model.FK_Classes_Specialisations_Classes" />
+        <AssociationConnector Association="AerithiumDB1Model.FK_Classes_Specialisations_Specialisations" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
